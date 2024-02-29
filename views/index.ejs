@@ -1,0 +1,33 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" href="stylesheets/index.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <div class="container">
+      <div class="side-bar">
+        <div class="row">
+          <div class="col-sm-2">
+            <ul class="bar-nav">
+              <li><a href="/">Home</a></li>
+              <li><a href="/products">All products</a></li>
+              <li><a href="/categories">Categories</a></li>
+              <hr />
+              <li><a href="/product/create">Create product</a></li>
+              <li><a href="/category/create">Create category</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="right-side">
+        <h1>Welcome to <%= title %></h1>
+        <p>We have a total of: <%= product_count%> products!</p>
+        <p>With a wide range of categories: <%= category_count%></p>
+      </div>
+    </div>
+  </body>
+</html>
