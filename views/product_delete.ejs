@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/stylesheets/index.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <div class="side-bar">
+          <div class="row">
+            <div class="col-sm-2">
+              <ul class="bar-nav">
+                <li><a href="/">Home</a></li>
+                <li><a href="/market/products">All products</a></li>
+                <li><a href="/market/categories">Categories</a></li>
+                <hr />
+                <li><a href="/market/product/create">Create product</a></li>
+                <li><a href="/market/category/create">Create category</a></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+        <div class="right-side">
+            <h1><%= title %></h1>
+            <p>Do you really want to delete this product?</p>
+            <h2><%= product.name %></h2>
+            <form action="/market/product/<%= product._id %>/delete" method="post">
+                <input type="text" name="productid" value="<%= product._id %>">
+                <br>
+                <button type="submit">Delete</button>
+            </form>
+        </div>
+
+</body>
+</html>

@@ -32,7 +32,7 @@ exports.getCategory_detail = asyncHandler(async (req, res, next) => {
 });
 
 exports.createCategory_get = (req, res, next) => {
-  res.render("category_form", { title: "Create a category" });
+  res.render("category_form", { title: "create" });
 };
 
 exports.createCategory_post = [
@@ -47,7 +47,7 @@ exports.createCategory_post = [
     console.log("hereL", category);
     if (!errors.isEmpty()) {
       res.render("category_form", {
-        title: "Create a category",
+        title: "create",
         category: category,
         // errors: errors.array(),
       });
@@ -69,17 +69,59 @@ exports.createCategory_post = [
 ];
 
 exports.deleteCategory_get = asyncHandler(async (req, res, next) => {
-  res.send("Not implemented: delete product GET");
+  const category = await Category.findById(req.params.id).exec();
+
+  if (category === null) {
+    res.redirect("/market/categories");
+  }
+  res.render("category_delete", {
+    title: "Category delete",
+    category: category,
+  });
 });
 
 exports.deleteCategory_post = asyncHandler(async (req, res, next) => {
-  res.send("Not implemented: delete product POST");
+  await Category.findByIdAndDelete(req.body.categoryid).exec();
+  res.redirect("/market/categories");
 });
 
 exports.updateCategory_get = asyncHandler(async (req, res, next) => {
-  res.send("Not implemented: update product GET");
+  const category = await Category.findById(req.params.id).exec();
+
+  if (category === null) {
+    res.redirect("/market/categories");
+  }
+
+  res.render("category_form", {
+    title: "update",
+    category: category,
+  });
 });
 
-exports.updateCategory_post = asyncHandler(async (req, res, next) => {
-  res.send("Not implemented: update product POST");
-});
+exports.updateCategory_post = [
+  body("name", "Name must not be empty.").trim().isLength({ min: 3 }).escape(),
+  asyncHandler(async (req, res, next) => {
+    const errors = validationResult(req);
+
+    const category = new Category({ name: req.body.name });
+
+    if (!errors.isEmpty()) {
+      res.render("category_form", {
+        title: "update",
+        category: category,
+      });
+      return;
+    } else {
+      const updatedCategory = await Category.findByIdAndUpdate(
+        req.params.id,
+        {
+          $set: {
+            name: req.body.name,
+          },
+        },
+        { new: true }
+      );
+      res.redirect(updatedCategory.url);
+    }
+  }),
+];

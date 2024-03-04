@@ -13,11 +13,11 @@
           <div class="col-sm-2">
             <ul class="bar-nav">
               <li><a href="/">Home</a></li>
-              <li><a href="/products">All products</a></li>
-              <li><a href="/categories">Categories</a></li>
+              <li><a href="/market/products">All products</a></li>
+              <li><a href="/market/categories">Categories</a></li>
               <hr />
-              <li><a href="/product/create">Create product</a></li>
-              <li><a href="/category/create">Create category</a></li>
+              <li><a href="/market/product/create">Create product</a></li>
+              <li><a href="/market/category/create">Create category</a></li>
             </ul>
           </div>
         </div>
@@ -28,10 +28,12 @@
         <h2><%= category.name %></h2>
         <% if(productCategory.length){%>
             <% productCategory.forEach((product) => { %>
-                <li><a href="/product/<%= product._id%>"> <%= product.name %></a></li>
+                <li><a href="<%= product.url%>"> <%= product.name %></a></li>
                 <p> <%= product.summary %></a></p>
             <% }) %>
         <% }%>
+        <a href="<%= category.url%>/delete">Delete category</a>
+        <a href="<%= category.url%>/update">Update category</a>
       </div>
     </div>
   </body>
